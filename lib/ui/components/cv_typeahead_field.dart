@@ -14,7 +14,7 @@ class CVTypeAheadField extends StatelessWidget {
   final Function onFieldSubmitted;
   final EdgeInsets padding;
   final FocusNode focusNode;
-  final CountryInstitueAPI countryInstituteObject;
+  final CountryInstituteAPI countryInstituteObject;
   final String countryInstituteToggle;
 
   /// Creates a [TextField] that is specifically styled for CircuitVerse.

@@ -74,7 +74,7 @@ class _EditProfileViewState extends State<EditProfileView> {
         FocusScope.of(context).requestFocus(_countryFocusNode);
       },
       countryInstituteToggle: Constants.COUNTRY,
-      countryInstituteObject: locator<CountryInstitueAPI>(),
+      countryInstituteObject: locator<CountryInstituteAPI>(),
     );
   }
 
@@ -87,7 +87,7 @@ class _EditProfileViewState extends State<EditProfileView> {
           _educationalInstitute = (value != '') ? value.trim() : '',
       countryInstituteToggle: Constants.EDUCATIONAL_INSTITUTE,
       action: TextInputAction.done,
-      countryInstituteObject: locator<CountryInstitueAPI>(),
+      countryInstituteObject: locator<CountryInstituteAPI>(),
     );
   }
 

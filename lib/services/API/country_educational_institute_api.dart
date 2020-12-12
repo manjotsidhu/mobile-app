@@ -2,11 +2,11 @@ import 'package:mobile_app/constants.dart';
 import 'package:mobile_app/models/failure_model.dart';
 import 'package:mobile_app/utils/api_utils.dart';
 
-abstract class CountryInstitueAPI {
+abstract class CountryInstituteAPI {
   Future<List<String>> getSuggestions(String query, String url);
 }
 
-class HttpCountryInstitueAPI implements CountryInstitueAPI {
+class HttpCountryInstituteAPI implements CountryInstituteAPI {
   bool _countryFlag = true;
   bool _instituteFlag = true;
   List<dynamic> data;

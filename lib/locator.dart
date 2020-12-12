@@ -51,8 +51,8 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<AssignmentsApi>(() => HttpAssignmentsApi());
   locator.registerLazySingleton<GradesApi>(() => HttpGradesApi());
   locator.registerLazySingleton<FCMApi>(() => HttpFCMApi());
-  locator.registerLazySingleton<CountryInstitueAPI>(
-      () => HttpCountryInstitueAPI());
+  locator.registerLazySingleton<CountryInstituteAPI>(
+      () => HttpCountryInstituteAPI());
 
   // Startup ViewModel
   locator.registerFactory(() => StartUpViewModel());
