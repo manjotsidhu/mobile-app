@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/app_theme.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import '../../services/API/country_educational_institute_api.dart';
+import 'package:mobile_app/services/API/country_educational_institute_api.dart';
 
 class CVTypeAheadField extends StatelessWidget {
   final String label;
@@ -14,8 +14,8 @@ class CVTypeAheadField extends StatelessWidget {
   final Function onFieldSubmitted;
   final EdgeInsets padding;
   final FocusNode focusNode;
-  final String url;
   final CountryInstitueAPI countryInstituteObject;
+  final String countryInstituteToggle;
 
   /// Creates a [TextField] that is specifically styled for CircuitVerse.
   ///
@@ -36,9 +36,9 @@ class CVTypeAheadField extends StatelessWidget {
     ),
     this.focusNode,
     this.onFieldSubmitted,
-    this.url,
     this.countryInstituteObject,
     this.controller,
+    this.countryInstituteToggle,
   }) : super(key: key);
 
   @override
@@ -67,9 +67,10 @@ class CVTypeAheadField extends StatelessWidget {
             ),
             suggestionsCallback: (pattern) async {
               try {
-                return await countryInstituteObject.getSuggestions(pattern);
+                return await countryInstituteObject.getSuggestions(
+                    pattern, countryInstituteToggle);
               } catch (e) {
-                return ['No suggestions found'];
+                return [pattern == '' ? 'No suggestions found' : pattern];
               }
             },
             transitionBuilder: (context, suggestionsBox, controller) {

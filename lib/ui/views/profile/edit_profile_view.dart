@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_app/constants.dart';
 import 'package:mobile_app/locator.dart';
 import 'package:mobile_app/services/API/country_educational_institute_api.dart';
 import 'package:mobile_app/services/dialog_service.dart';
@@ -11,6 +12,8 @@ import 'package:mobile_app/ui/views/base_view.dart';
 import 'package:mobile_app/utils/snackbar_utils.dart';
 import 'package:mobile_app/utils/validators.dart';
 import 'package:mobile_app/viewmodels/profile/edit_profile_viewmodel.dart';
+
+import '../../../services/API/country_educational_institute_api.dart';
 
 class EditProfileView extends StatefulWidget {
   static const String id = 'edit_profile_view';
@@ -26,8 +29,8 @@ class _EditProfileViewState extends State<EditProfileView> {
   String _name, _educationalInstitute, _country;
   bool _subscribed;
 
-  final String _countriesURL = 'https://restcountries.eu/rest/v2/all';
-  final String _instituteURL = 'http://universities.hipolabs.com/search?';
+  //final String _countriesURL = 'https://restcountries.eu/rest/v2/all';
+  //final String _instituteURL = 'http://universities.hipolabs.com/search?';
 
   final _nameFocusNode = FocusNode();
   final _countryFocusNode = FocusNode();
@@ -70,8 +73,8 @@ class _EditProfileViewState extends State<EditProfileView> {
         _nameFocusNode.unfocus();
         FocusScope.of(context).requestFocus(_countryFocusNode);
       },
-      url: _countriesURL,
-      countryInstituteObject: CountryInstitueAPI(url: _countriesURL),
+      countryInstituteToggle: Constants.COUNTRY,
+      countryInstituteObject: locator<CountryInstitueAPI>(),
     );
   }
 
@@ -82,9 +85,9 @@ class _EditProfileViewState extends State<EditProfileView> {
       controller: TextEditingController(text: _educationalInstitute),
       onSaved: (value) =>
           _educationalInstitute = (value != '') ? value.trim() : '',
-      url: _instituteURL,
+      countryInstituteToggle: Constants.EDUCATIONAL_INSTITUTE,
       action: TextInputAction.done,
-      countryInstituteObject: CountryInstitueAPI(url: _instituteURL),
+      countryInstituteObject: locator<CountryInstitueAPI>(),
     );
   }
 
