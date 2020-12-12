@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_app/locator.dart';
+import 'package:mobile_app/services/API/country_educational_institute_api.dart';
 import 'package:mobile_app/services/dialog_service.dart';
 import 'package:mobile_app/services/local_storage_service.dart';
 import 'package:mobile_app/ui/components/cv_primary_button.dart';
 import 'package:mobile_app/ui/components/cv_text_field.dart';
+import 'package:mobile_app/ui/components/cv_typeahead_field.dart';
 import 'package:mobile_app/ui/views/base_view.dart';
 import 'package:mobile_app/utils/snackbar_utils.dart';
 import 'package:mobile_app/utils/validators.dart';
@@ -24,6 +26,19 @@ class _EditProfileViewState extends State<EditProfileView> {
   String _name, _educationalInstitute, _country;
   bool _subscribed;
 
+  final String _countriesURL = 'https://restcountries.eu/rest/v2/all';
+  final String _instituteURL = 'http://universities.hipolabs.com/search?';
+
+  final _nameFocusNode = FocusNode();
+  final _countryFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _nameFocusNode.dispose();
+    _countryFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,22 +55,36 @@ class _EditProfileViewState extends State<EditProfileView> {
       initialValue: _name,
       validator: (value) => value.isEmpty ? "Name can't be empty" : null,
       onSaved: (value) => _name = value.trim(),
+      onFieldSubmitted: (_) =>
+          FocusScope.of(context).requestFocus(_nameFocusNode),
     );
   }
 
   Widget _buildCountryField() {
-    return CVTextField(
+    return CVTypeAheadField(
+      focusNode: _nameFocusNode,
       label: 'Country',
-      initialValue: _country,
-      onSaved: (value) => _country = value.trim(),
+      controller: TextEditingController(text: _country),
+      onSaved: (value) => _country = (value != '') ? value.trim() : '',
+      onFieldSubmitted: () {
+        _nameFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(_countryFocusNode);
+      },
+      url: _countriesURL,
+      countryInstituteObject: CountryInstitueAPI(url: _countriesURL),
     );
   }
 
   Widget _buildInstituteField() {
-    return CVTextField(
+    return CVTypeAheadField(
+      focusNode: _countryFocusNode,
       label: 'Educational Institute',
-      initialValue: _educationalInstitute,
-      onSaved: (value) => _educationalInstitute = value.trim(),
+      controller: TextEditingController(text: _educationalInstitute),
+      onSaved: (value) =>
+          _educationalInstitute = (value != '') ? value.trim() : '',
+      url: _instituteURL,
+      action: TextInputAction.done,
+      countryInstituteObject: CountryInstitueAPI(url: _instituteURL),
     );
   }
 
