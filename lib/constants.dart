@@ -44,8 +44,4 @@ class Constants {
   static const String UNAUTHENTICATED =
       'Unauthenticated to perform this action';
   static const String UNAUTHORIZED = 'Unauthorized to perform this action';
-
-  ////Country-Institute Constants
-  static const String COUNTRY = 'country';
-  static const String EDUCATIONAL_INSTITUTE = 'educational institute';
 }

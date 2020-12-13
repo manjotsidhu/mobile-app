@@ -87,7 +87,7 @@ class CVTypeAheadField extends StatelessWidget {
               }
             },
             onSaved: (value) {
-              onSaved((value == '') ? text : value);
+              onSaved((value == '') ? (text ?? 'N.A') : value);
             },
           );
         },
