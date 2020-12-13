@@ -38,7 +38,6 @@ class HttpCountryInstituteAPI implements CountryInstituteAPI {
     } on Exception {
       throw Failure(Constants.GENERIC_FAILURE);
     } catch (e) {
-      print(e);
       throw Failure(Constants.GENERIC_FAILURE);
     }
   }
