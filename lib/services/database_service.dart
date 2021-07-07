@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mobile_app/models/ib/ib_chapter.dart';
+import 'package:mobile_app/models/ib/ib_content.dart';
+import 'package:mobile_app/models/ib/ib_page_data.dart';
 
 enum DatabaseBox {
   IB,
@@ -28,7 +31,10 @@ class DatabaseServiceImpl implements DatabaseService {
     }
 
     // Register Adapters for Hive
-    // (TODO)
+    Hive.registerAdapter(IbChapterAdapter());
+    Hive.registerAdapter(IbTocItemAdapter());
+    Hive.registerAdapter(IbMdAdapter());
+    Hive.registerAdapter(IbPageDataAdapter());
   }
 
   Future<Box> _openBox(DatabaseBox box) async {
